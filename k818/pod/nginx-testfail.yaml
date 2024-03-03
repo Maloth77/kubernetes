@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mynginx-test-fail
+  labels:
+    devops: '18'
+    company: talent
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.19.1234
+    ports:
+    - containerPort: 80
+

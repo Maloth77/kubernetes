@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: soft-affinity
+  labels:
+    purpose: learning
+  namespace: maloth
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      type: create
+  template:
+    metadata:
+      name: httpd-test
+      labels:
+        devops: '18'
+        company: talent
+        type: create
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:latest
+        ports:
+        - containerPort: 80
+      affinity:
+         nodeAffinity:
+           preferredDuringSchedulingIgnoredDuringExecution:
+           - weight: 1
+             preference:
+               matchExpressions:
+               - key: batch
+                 operator: In
+                 values:
+                 - '18'
+        
+
+

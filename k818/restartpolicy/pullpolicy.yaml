@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginxpullpolicy-always
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    imagePullPolicy: Always
+  restartPolicy: Always
+

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: deploy-test-recreate
+  labels:
+    purpose: learning
+  namespace: qa
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      type: create
+  template:
+    metadata:
+      name: httpd-test
+      labels:
+        devops: '18'
+        company: talent
+        type: create
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:2.4
+        ports:
+        - containerPort: 80

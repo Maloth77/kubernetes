@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: pod-affinity-test
+  labels:
+    purpose: learning
+  namespace: marvel
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      type: create
+  template:
+    metadata:
+      name: httpd-test
+      labels:
+        devops: '18'
+        company: talent
+        type: create
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:latest
+        ports:
+        - containerPort: 80
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: type
+                  operator: In
+                  values:
+                  - cicd
+            topologyKey: topology.kubernetes.io/zone
+
+

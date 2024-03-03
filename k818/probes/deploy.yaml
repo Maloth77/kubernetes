@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: probe-test
+  labels:
+    purpose: learning
+  namespace: thor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: create
+  template:
+    metadata:
+      name: httpd-test
+      labels:
+        devops: '18'
+        company: talent
+        type: create
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: 5Mi
+          limits:
+            memory: 8Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+

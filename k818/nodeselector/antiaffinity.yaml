@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: anti-affinity
+  labels:
+    purpose: learning
+  namespace: maloth
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      type: create
+  template:
+    metadata:
+      name: httpd-test
+      labels:
+        devops: '18'
+        company: talent
+        type: create
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:latest
+        ports:
+        - containerPort: 80
+      affinity:
+         nodeAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+             - matchExpressions:
+               - key: batch
+                 operator: NotIn
+                 values:
+                 - '18'
+        
+
+
